@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  prediction-api:
+    build:
+      context: .
+      dockerfile: prediction-api/Dockerfile
+    image: prediction-api:latest
+    container_name: prediction-api
+    # ports:
+    #   - "4242:4242"
+    volumes:
+      - ./prediction-api/model.pkl:/app/model.pkl
+
+  streamlit-web:
+    build:
+      context: .
+      dockerfile: streamlit-service/Dockerfile
+    image: streamlit-service:latest
+    container_name: streamlit-service
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./streamlit-service/main.py:/app/main.py

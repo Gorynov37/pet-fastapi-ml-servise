@@ -10,7 +10,7 @@ import uvicorn
 
 # Загружаем модель один раз при старте
 try:
-    model = joblib.load("price_model_light.pkl")
+    model = joblib.load("model.pkl")
     print("✅ Модель загружена успешно")
 except:
     print("❌ Не удалось загрузить модель")
@@ -38,8 +38,7 @@ class ApartmentInput(BaseModel):
 async def health_check():
     """Проверка доступности сервиса"""
     return {
-        "status": "ok" if model is not None else "error",
-        "model_loaded": model is not None
+        "status": "ok"
     }
 
 # Основная ручка для предсказания
@@ -93,4 +92,4 @@ async def root():
 
 # Запуск сервера
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=4242)
